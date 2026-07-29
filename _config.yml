@@ -59,7 +59,7 @@ al_folio:
     allow_remote_loader: false
   features:
     cv:
-      enabled: false  # <-- EDIT THIS: Set to false if you don't want a CV/Resume page
+      enabled: false
     distill:
       enabled: true
   compat:
