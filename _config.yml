@@ -2,43 +2,41 @@
 # Site settings
 # -----------------------------------------------------------------------------
 
-title: blank # the website title (if blank, full name will be used instead)
-first_name: You
-middle_name: R.
-last_name: Name
+title: Static Webpage # <-- EDIT THIS: Leave as 'blank' to use your full name, or type a custom site title (e.g., "My Portfolio")
+first_name: AM # <-- EDIT THIS: Your actual first name
+middle_name: M # <-- EDIT THIS: Your middle name (or leave blank/remove this line)
+last_name: Tyb # <-- EDIT THIS: Your actual last name
 contact_note: >
-  You can even add a little note about which of these is the best way to reach you.
-description: > # the ">" symbol means to ignore newlines until "footer_text:"
-  A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+  You can send me an email for any comments/suggestions. # <-- EDIT THIS: Optional note for your contact section
+description: > 
+  A simple wbpage for showcasing what or what not to do when learning the machine learning. # <-- EDIT THIS: A short 1-2 sentence description of yourself/your site
 footer_text: >
-  Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
-  Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
-  Photos from <a href="https://unsplash.com" target="_blank">Unsplash</a>.
-keywords: jekyll, jekyll-theme, academic-website, portfolio-website # add your own keywords or leave empty
-lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
-icon: ⚛️ # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
+   Powered by <a href="https://jekyllrb.com/" target="_blank">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio">al-folio</a> theme.
+   Hosted by <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
+  # Photos from <a href="https://unsplash.com" target="_blank">Unsplash</a>. # <-- EDIT THIS: You can change or remove the Unsplash credit if you don't use their photos
+keywords: Learning, Deep Learning, AI, CV # <-- EDIT THIS: Add 3-5 keywords related to your field (helps with search engines)
+lang: en # <-- EDIT THIS: Your site's language (e.g., en, fr, es, hi, etc.)
+icon: ✅  # <-- EDIT THIS: The emoji for your browser tab, or replace with an image filename (e.g., "favicon.png") located in /assets/img/
 
-url: https://alshedivat.github.io # the base hostname & protocol for your site
-baseurl: /al-folio # the subpath of your site, e.g. /blog/. Leave blank for root
-last_updated: false # set to true if you want to display last updated in the footer
-impressum_path: # set to path to include impressum link in the footer, use the same path as permalink in a page, helps to conform with EU GDPR
-back_to_top: true # set to false to disable the back to top button
+url: "https://tyb1110.github.io" # <-- CRITICAL: REPLACE 'abc1234' WITH YOUR ACTUAL GITHUB USERNAME
+baseurl: "" # <-- CRITICAL: LEAVE EXACTLY LIKE THIS (two quotes with nothing inside) for a main user site
+
+last_updated: true # <-- EDIT THIS: Set to false if you don't want "Last updated" dates on your pages
+impressum_path: # <-- EDIT THIS: Leave blank unless you need a legal imprint page (required in some EU countries)
+back_to_top: true # <-- EDIT THIS: Set to false to disable the "scroll to top" button
 
 # -----------------------------------------------------------------------------
 # Theme
 # -----------------------------------------------------------------------------
 
-# repo color theme
-repo_theme_light: default # https://github.com/stats-organization/github-stats-extended/blob/master/packages/core/src/themes/README.md
-repo_theme_dark: dark # https://github.com/stats-organization/github-stats-extended/blob/master/packages/core/src/themes/README.md
+repo_theme_light: dark # <-- EDIT THIS: GitHub stats theme for light mode (e.g., default, dark, dark_dimmed)
+repo_theme_dark: dark # <-- EDIT THIS: GitHub stats theme for dark mode
 repo_trophies:
-  enabled: true
-  theme_light: flat # https://github.com/ryo-ma/github-profile-trophy
-  theme_dark: gitdimmed # https://github.com/ryo-ma/github-profile-trophy
+  enabled: true # <-- EDIT THIS: Set to false if you don't want GitHub profile trophies on your site
+  theme_light: flat 
+  theme_dark: gitdimmed 
 
-# External service URLs for repository page
-# To use a different instance or service for displaying GitHub stats and trophies,
-# update these URLs. These are used in the repository templates.
+# External service URLs for repository page (Usually fine to leave as default)
 external_services:
   github_readme_stats_url: https://github-stats-extended.vercel.app
   github_profile_trophy_url: https://github-profile-trophy.vercel.app
@@ -46,6 +44,7 @@ external_services:
 # -----------------------------------------------------------------------------
 # al-folio API (v1.x)
 # -----------------------------------------------------------------------------
+# (Leave this section as default unless you know you need to change it)
 
 al_folio:
   api_version: 1
@@ -60,7 +59,7 @@ al_folio:
     allow_remote_loader: false
   features:
     cv:
-      enabled: true
+      enabled: false  # <-- EDIT THIS: Set to false if you don't want a CV/Resume page
     distill:
       enabled: true
   compat:
@@ -74,60 +73,48 @@ al_folio:
     auto_apply_safe_fixes: false
 
 # -----------------------------------------------------------------------------
-# RSS Feed
-# -----------------------------------------------------------------------------
-# will use title and url fields
-# Take a look to https://github.com/jekyll/jekyll-feed for more customization
-
-# -----------------------------------------------------------------------------
 # Layout
 # -----------------------------------------------------------------------------
 
-navbar_fixed: true
-footer_fixed: true
-search_enabled: true
+navbar_fixed: true # <-- EDIT THIS: Set to false if you want the top menu to scroll away
+footer_fixed: true # <-- EDIT THIS: Set to false if you want the footer to scroll away
+search_enabled: true # <-- EDIT THIS: Set to false to disable the site search bar
 socials_in_search: true
 posts_in_search: true
 bib_search: true
 
-# Dimensions
-max_width: 930px
+max_width: 930px # <-- EDIT THIS: Adjust the maximum width of your site content (e.g., 800px, 1000px)
 
 # -----------------------------------------------------------------------------
 # Open Graph & Schema.org
 # -----------------------------------------------------------------------------
-# Display links to the page with a preview object on social media.
-# see https://schema.org/docs/faq.html for more information
-serve_og_meta: false # Include Open Graph meta tags in the HTML head
-serve_schema_org: false # Include Schema.org in the HTML head
-og_image: # The site-wide (default for all links) Open Graph preview image
+
+serve_og_meta: false # <-- EDIT THIS: Set to true if you want nice preview cards when sharing links on Twitter/LinkedIn
+serve_schema_org: false # <-- EDIT THIS: Set to true for better search engine understanding of your content
+og_image: # <-- EDIT THIS: Add a filename (e.g., "assets/img/preview.jpg") if serve_og_meta is true
 
 # -----------------------------------------------------------------------------
 # Analytics and search engine verification
 # -----------------------------------------------------------------------------
 
 analytics:
-  # For Google Analytics, see https://support.google.com/analytics/answer/10447272?hl=en&ref_topic=14088998&sjid=5129943941510317771-SA#zippy=%2Cgoogle-sites
-  # and follow the instructions for Google Sites. You will need to create a Google Analytics property and copy the Google tag ID.
-  google: # your Google Analytics measurement ID (format: G-XXXXXXXXXX)
-  cronitor: # cronitor RUM analytics site ID (format: XXXXXXXXX)
-  pirsch: # your Pirsch analytics site ID (length 32 characters)
-  openpanel: # your Openpanel analytics client ID (format: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX)
+  google: # <-- EDIT THIS: Add your Google Analytics ID (e.g., "G-XXXXXXXXXX") if you want to track visitors
+  cronitor: 
+  pirsch: 
+  openpanel: 
 
-# For Google Search Console, see https://support.google.com/webmasters/answer/9008080?hl=en#meta_tag_verification&zippy=%2Chtml-tag
-google_site_verification: # your google-site-verification ID (Google Search Console)
-bing_site_verification: # out your bing-site-verification ID (Bing Webmaster)
+google_site_verification: # <-- EDIT THIS: Add your Google Search Console verification code (optional)
+bing_site_verification: # <-- EDIT THIS: Add your Bing Webmaster verification code (optional)
 
 # -----------------------------------------------------------------------------
 # Blog
 # -----------------------------------------------------------------------------
 
-blog_name: al-folio # blog_name will be displayed in your blog page
-blog_description: a simple whitespace theme for academics
+blog_name: Chronicles of tyb # <-- EDIT THIS: The title that appears on your blog page (e.g., "My Tech Blog")
+blog_description: showcasing what or what not to do when learning the machine learning # <-- EDIT THIS: Short description for your blog page
 permalink: /blog/:year/:title/
-lsi: false # produce an index for related posts
+lsi: false 
 
-# Pagination
 pagination:
   enabled: true
 
@@ -135,54 +122,43 @@ related_blog_posts:
   enabled: true
   max_related: 5
 
-# Giscus comments (RECOMMENDED)
-# Follow instructions on https://giscus.app/ to setup for your repo to fill out the information below.
+# Giscus comments (Optional: Only edit if you want to add a comment section to your blog posts)
 giscus:
-  repo: # <your-github-user-name>/<your-github-repo-name>
-  repo_id: # leave empty or specify your repo_id (see https://giscus.app/)
-  category: Comments # name of the category under which discussions will be created
-  category_id: # leave empty or specify your category_id (see https://giscus.app/)
-  mapping: title # identify discussions by post title
-  strict: 1 # use strict identification mode
-  reactions_enabled: 1 # enable (1) or disable (0) emoji reactions
-  input_position: bottom # whether to display input form below (bottom) or above (top) the comments
-  dark_theme: dark # name of the dark color scheme (preferred works well with al-folio dark mode)
-  light_theme: light # name of the light color scheme (preferred works well with al-folio light mode)
+  repo: # <-- EDIT THIS: Your GitHub repo name (e.g., "abc1234/abc1234.github.io")
+  repo_id: # <-- EDIT THIS: Your repo_id from https://giscus.app/
+  category: Comments 
+  category_id: # <-- EDIT THIS: Your category_id from https://giscus.app/
+  mapping: title 
+  strict: 1 
+  reactions_enabled: 1 
+  input_position: bottom 
+  dark_theme: dark 
+  light_theme: light 
   emit_metadata: 0
   lang: en
 
-# Disqus comments (DEPRECATED)
-disqus_shortname: al-folio # put your disqus shortname
-# https://help.disqus.com/en/articles/1717111-what-s-a-shortname
+# Disqus comments (DEPRECATED - Leave blank unless you specifically want to use Disqus)
+disqus_shortname: 
 
-# External sources.
-# If you have blog posts published on medium.com or other external sources,
-# you can display them in your blog by adding a link to the RSS feed.
-# Optional: Set default categories and tags for posts from each source.
+# External sources (Optional: Only edit if you want to pull in posts from Medium, Substack, etc.)
 external_sources:
   - name: medium.com
-    rss_url: https://medium.com/@al-folio/feed
+    rss_url: https://medium.com/@al-folio/fee # <-- EDIT THIS: Your actual Medium/Substack RSS feed URL
     categories: [external-posts]
     tags: [medium]
-  - name: Google Blog
-    posts:
-      - url: https://blog.google/technology/ai/google-gemini-update-flash-ai-assistant-io-2024/
-        published_date: 2024-05-14
-    categories: [external-posts]
-    tags: [google]
 
 # -----------------------------------------------------------------------------
 # Newsletter
 # -----------------------------------------------------------------------------
 
 newsletter:
-  enabled: false
-  endpoint: # your loops endpoint (e.g., https://app.loops.so/api/newsletter-form/YOUR-ENDPOINT)
-  # https://loops.so/docs/forms/custom-form
+  enabled: false # <-- EDIT THIS: Set to true if you want to collect email subscribers
+  endpoint: # <-- EDIT THIS: Your newsletter service endpoint (e.g., Loops, Mailchimp)
 
 # -----------------------------------------------------------------------------
 # Collections
 # -----------------------------------------------------------------------------
+# (These control which folders generate pages. Leave as default unless you want to remove a section)
 
 collections:
   books:
@@ -199,8 +175,8 @@ collections:
 # -----------------------------------------------------------------------------
 # Jekyll settings
 # -----------------------------------------------------------------------------
+# (Leave this entire bottom section exactly as it is. It tells GitHub how to process your site.)
 
-# Markdown and syntax highlight
 markdown: kramdown
 highlighter: rouge
 kramdown:
@@ -213,7 +189,6 @@ kramdown:
       line_numbers: false
       start_line: 1
 
-# Includes & excludes
 include: ["_pages"]
 exclude:
   - AGENTS.md
