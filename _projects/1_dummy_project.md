@@ -11,6 +11,7 @@ Every good portfolio needs at least one slightly ridiculous project, right? Here
 ## The Idea
 
 I decided to train a model to predict whether I'd like a coffee based on various features:
+
 - Roast darkness (1-10 scale)
 - Caffeine content (mg)
 - Price (because fancy = better? Not always!)

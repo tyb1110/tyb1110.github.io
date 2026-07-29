@@ -15,27 +15,30 @@ This project focuses on building an image classifier with data augmentation to i
 ## Key Components
 
 ### Data Preparation
+
 - Image preprocessing and normalization
 - Train/validation/test split
 - Class balancing techniques
 
 ### Augmentation Strategies
+
 - Random rotations and flips
 - Brightness and contrast adjustments
 - Zoom and shift operations
 
 ### Model Architecture
+
 - Convolutional Neural Networks (CNN)
 - Transfer learning with pre-trained models
 - Hyperparameter optimization
 
 ## Results
 
-| Metric | Without Augmentation | With Augmentation |
-|--------|----------------------|-------------------|
-| Train Accuracy | 95% | 88% |
-| Test Accuracy | 72% | 84% |
-| Generalization | Poor | Much Better! |
+| Metric          | Without Augmentation | With Augmentation |
+| --------------- | -------------------- | ----------------- |
+| Train Accuracy  | 95%                  | 88%               |
+| Test Accuracy   | 72%                  | 84%               |
+| Generalization  | Poor                 | Much Better!      |
 
 ## Key Takeaways
 

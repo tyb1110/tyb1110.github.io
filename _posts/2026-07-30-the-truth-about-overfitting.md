@@ -45,4 +45,4 @@ Thanks to this disaster, I learned more in one day than I had in the previous mo
 
 ---
 
-*Next time: How to properly evaluate your model (so you don't end up like me)*
+_Next time: How to properly evaluate your model (so you don't end up like me)_
