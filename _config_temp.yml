@@ -1,0 +1,6 @@
+# External sources (Optional: Only edit if you want to pull in posts from Medium, Substack, etc.)
+# external_sources:
+#   - name: medium.com
+#     rss_url: https://medium.com/@al-folio/fee # <-- EDIT THIS: Your actual Medium/Substack RSS feed URL
+#     categories: [external-posts]
+#     tags: [medium]

@@ -10,7 +10,8 @@ A more serious project showcasing image classification techniques.
 
 ## Overview
 
-This project focuses on building an image classifier with data augmentation to improve generalization.
+This project focuses on building an image classifier with data augmentation to improve
+generalization.
 
 ## Key Components
 
@@ -34,11 +35,11 @@ This project focuses on building an image classifier with data augmentation to i
 
 ## Results
 
-| Metric          | Without Augmentation | With Augmentation |
-| --------------- | -------------------- | ----------------- |
-| Train Accuracy  | 95%                  | 88%               |
-| Test Accuracy   | 72%                  | 84%               |
-| Generalization  | Poor                 | Much Better!      |
+| Metric         | Without Augmentation | With Augmentation |
+| -------------- | -------------------- | ----------------- |
+| Train Accuracy | 95%                  | 88%               |
+| Test Accuracy  | 72%                  | 84%               |
+| Generalization | Poor                 | Much Better!      |
 
 ## Key Takeaways
 
