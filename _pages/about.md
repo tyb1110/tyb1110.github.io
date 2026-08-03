@@ -5,7 +5,7 @@ permalink: /
 sublayout: about_einstein
 ---
 
-I am AM M Tyb, a curious explorer of the machine learning universe! 🤖✨
+I am AM M Tyb, a curious explorer of the machine learning universe! 
 
 This website chronicles my journey through the thrilling (and sometimes bewildering) world of AI and Deep Learning. Think of it as a digital breadcrumb trail of what **to do** when learning ML, and equally important — what **NOT to do**.
 
@@ -26,6 +26,6 @@ _"To share knowledge, laugh at mistakes, and maybe help someone avoid the same p
 
 ### Fun Facts
 
-- I once spent 2 hours debugging code only to realize it was a `print()` statement 🙈
+- I once spent 2 hours debugging code only to realize it was a `print()` statement 
 - My GPU has seen things... terrible, terrible things
 - I believe in the power of well-commented code (sometimes)
