@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The Fallacy Case File</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700&display=swap');
+
+  :root{
+    /* Fallbacks are used only if the page is opened outside the al-folio site.
+       When embedded in the blog, JavaScript below copies the active al-folio
+       colors and fonts from the parent page. */
+    --page-bg:#ffffff;
+    --card-bg:#ffffff;
+    --text:#212529;
+    --text-soft:#6c757d;
+    --accent:#b509ac;
+    --accent-hover:#8f0788;
+    --border:#dee2e6;
+    --success:#198754;
+    --danger:#dc3545;
+    --site-font:'Roboto',sans-serif;
+    --site-heading-font:'Roboto',sans-serif;
+    --site-heading-weight:400;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html{
+    background:var(--page-bg);
+  }
+
+  body{
+    margin:0;
+    padding:0 0 48px;
+    background:var(--page-bg);
+    color:var(--text);
+    font-family:var(--site-font);
+    font-size:16px;
+    line-height:1.5;
+    transition:background-color .2s ease,color .2s ease;
+  }
+
+  button{
+    font:inherit;
+  }
+
+  .masthead{
+    max-width:930px;
+    margin:0 auto;
+    padding:26px 24px 20px;
+    border-bottom:1px solid var(--border);
+  }
+
+  .kicker{
+    margin:0 0 7px;
+    color:var(--accent);
+    font-size:.78rem;
+    font-weight:500;
+    letter-spacing:.04em;
+  }
+
+  h1{
+    margin:0 0 7px;
+    color:var(--text);
+    font-family:var(--site-heading-font);
+    font-size:clamp(2rem,5vw,2.7rem);
+    font-weight:var(--site-heading-weight);
+    line-height:1.2;
+    letter-spacing:-.02em;
+  }
+
+  .sub{
+    max-width:720px;
+    color:var(--text-soft);
+    font-size:1rem;
+    line-height:1.55;
+  }
+
+  .intro{
+    max-width:780px;
+    margin:22px auto;
+    padding:0 24px;
+    color:var(--text);
+    font-size:.97rem;
+    line-height:1.65;
+  }
+
+  .tabs{
+    max-width:930px;
+    margin:24px auto 0;
+    padding:0 24px;
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+
+  .tab{
+    padding:8px 14px;
+    border:1px solid var(--border);
+    border-radius:5px;
+    background:var(--card-bg);
+    color:var(--text);
+    cursor:pointer;
+    font-size:.86rem;
+    font-weight:500;
+    transition:background-color .15s ease,border-color .15s ease,color .15s ease,transform .15s ease;
+  }
+
+  .tab:hover:not(.active){
+    border-color:var(--accent);
+    color:var(--accent);
+  }
+
+  .tab.active{
+    border-color:var(--accent);
+    background:var(--accent);
+    color:#fff;
+  }
+
+  .panel-frame{
+    max-width:930px;
+    margin:0 auto;
+    padding:18px 24px 0;
+  }
+
+  .panel-desc{
+    max-width:760px;
+    margin:0 0 18px;
+    color:var(--text-soft);
+    font-size:.92rem;
+    line-height:1.55;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(290px,1fr));
+    gap:16px;
+    max-width:930px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  .card{
+    position:relative;
+    padding:18px;
+    border:1px solid var(--border);
+    border-radius:7px;
+    background:var(--card-bg);
+    color:var(--text);
+    cursor:pointer;
+    transition:transform .12s ease,box-shadow .12s ease,border-color .12s ease;
+  }
+
+  .card:hover{
+    transform:translateY(-2px);
+    border-color:var(--accent);
+    box-shadow:0 5px 14px rgba(0,0,0,.08);
+  }
+
+  .exhibit{
+    margin-bottom:3px;
+    color:var(--accent);
+    font-size:.71rem;
+    font-weight:500;
+    letter-spacing:.04em;
+  }
+
+  .card h3{
+    margin:2px 0 8px;
+    color:var(--text);
+    font-family:var(--site-heading-font);
+    font-size:1.18rem;
+    font-weight:500;
+    line-height:1.35;
+  }
+
+  .latin{
+    margin:-4px 0 9px;
+    color:var(--text-soft);
+    font-family:'Roboto Slab',serif;
+    font-size:.8rem;
+    font-style:italic;
+  }
+
+  .card p.def{
+    margin:0 0 11px;
+    color:var(--text-soft);
+    font-size:.88rem;
+    line-height:1.58;
+  }
+
+  .example{
+    display:none;
+    margin:8px 0 0;
+    padding:9px 11px;
+    border-left:3px solid var(--accent);
+    border-radius:0 4px 4px 0;
+    background:color-mix(in srgb,var(--accent) 8%,var(--card-bg));
+    color:var(--text);
+    font-size:.84rem;
+    line-height:1.55;
+  }
+
+  .example.two{
+    border-left-color:var(--text-soft);
+    background:color-mix(in srgb,var(--text-soft) 7%,var(--card-bg));
+  }
+
+  .card.open .example{
+    display:block;
+  }
+
+  .tap-hint{
+    margin-top:10px;
+    color:var(--text-soft);
+    font-size:.72rem;
+    opacity:.75;
+  }
+
+  /* Quiz */
+  .quiz-wrap{
+    max-width:720px;
+    margin:0 auto;
+    padding:4px 24px 40px;
+  }
+
+  .quiz-card{
+    padding:24px;
+    border:1px solid var(--border);
+    border-radius:7px;
+    background:var(--card-bg);
+  }
+
+  .quiz-scenario{
+    margin:0 0 20px;
+    color:var(--text);
+    font-family:var(--site-heading-font);
+    font-size:1.12rem;
+    font-weight:400;
+    line-height:1.55;
+  }
+
+  .quiz-options{
+    display:grid;
+    gap:9px;
+  }
+
+  .opt{
+    padding:11px 13px;
+    border:1px solid var(--border);
+    border-radius:5px;
+    background:var(--page-bg);
+    color:var(--text);
+    text-align:left;
+    cursor:pointer;
+    font-size:.9rem;
+    transition:border-color .15s ease,background-color .15s ease;
+  }
+
+  .opt:hover{
+    border-color:var(--accent);
+  }
+
+  .opt.correct{
+    border-color:var(--success);
+    background:color-mix(in srgb,var(--success) 12%,var(--card-bg));
+    font-weight:500;
+  }
+
+  .opt.wrong{
+    border-color:var(--danger);
+    background:color-mix(in srgb,var(--danger) 10%,var(--card-bg));
+  }
+
+  .feedback{
+    display:none;
+    margin-top:14px;
+    color:var(--text-soft);
+    font-size:.88rem;
+    line-height:1.55;
+  }
+
+  .quiz-footer{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    margin-top:20px;
+    color:var(--text-soft);
+    font-size:.8rem;
+    flex-wrap:wrap;
+  }
+
+  .next-btn{
+    display:none;
+    padding:8px 13px;
+    border:1px solid var(--accent);
+    border-radius:5px;
+    background:var(--accent);
+    color:#fff;
+    cursor:pointer;
+    font-size:.82rem;
+    font-weight:500;
+  }
+
+  .next-btn:hover{
+    background:var(--accent-hover);
+    border-color:var(--accent-hover);
+  }
+
+  .score,
+  .progress{
+    color:var(--text-soft);
+  }
+
+  ::selection{
+    background:var(--accent);
+    color:#fff;
+  }
+
+  @media (max-width:640px){
+    .masthead{ padding:20px 16px 17px; }
+    .intro{ padding:0 16px; }
+    .tabs{ padding:0 16px; }
+    .panel-frame{ padding-left:16px; padding-right:16px; }
+    .grid{ padding:0 16px; grid-template-columns:1fr; }
+    .quiz-wrap{ padding-left:16px; padding-right:16px; }
+    .quiz-card{ padding:18px; }
+  }
+
+  /* color-mix fallback for older browsers */
+  @supports not (background: color-mix(in srgb, white 50%, black)){
+    .example{ background:rgba(128,128,128,.08); }
+    .example.two{ background:rgba(128,128,128,.06); }
+    .opt.correct{ background:rgba(25,135,84,.12); }
+    .opt.wrong{ background:rgba(220,53,69,.10); }
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="kicker">Field Reference · Rhetoric &amp; Reasoning</div>
+  <h1>The Fallacy Case File</h1>
+  <div class="sub">A workshop dossier of the errors arguments make — how to name them, spot them, and teach them.</div>
+</div>
+
+<div class="intro">
+  A <strong>logical fallacy</strong> is a flaw in reasoning — the conclusion doesn't actually follow from the premises, even if the argument sounds persuasive. Fallacies split into two families: <strong>formal</strong> fallacies break the argument's structure itself (they'd be invalid no matter the topic), and <strong>informal</strong> fallacies break down because of content, context, or delivery — irrelevant points, unearned assumptions, or slippery language.
+  Tap any card below to reveal two worked examples. Use the tabs to browse by family, or jump into the quiz — now 27 scenarios covering all 22 fallacies — to test a group.
+</div>
+
+<div class="tabs" id="tabs"></div>
+
+<div class="panel-frame">
+  <div class="panel-desc" id="panelDesc"></div>
+</div>
+
+<div class="grid" id="grid"></div>
+
+<div id="quizSection" style="display:none;">
+  <div class="panel-frame" style="margin-top:26px;">
+    <div class="panel-desc">Read the scenario. Name the fallacy at work.</div>
+  </div>
+  <div class="quiz-wrap">
+    <div class="quiz-card">
+      <div class="quiz-scenario" id="quizScenario"></div>
+      <div class="quiz-options" id="quizOptions"></div>
+      <div class="feedback" id="quizFeedback"></div>
+      <div class="quiz-footer">
+        <span class="score" id="quizScore">Score: 0 / 0</span>
+        <span class="progress" id="quizProgress">Case 1 / 27</span>
+        <button class="next-btn" id="nextBtn">Next case →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const DATA = {
+  formal: {
+    label: "Formal",
+    desc: "The argument's structure is invalid — it would fail no matter what you plugged in for its content.",
+    items: [
+      {name:"Affirming the Consequent", latin:"", def:"Reasoning 'If P then Q; Q; therefore P.' Q being true doesn't mean P caused it — something else could explain Q.",
+        example:"If it rains, the grass is wet. The grass is wet. Therefore, it rained. (A sprinkler could explain the wet grass just as well.)",
+        example2:"If she's a doctor, she went to medical school. She went to medical school. Therefore, she's a doctor. (She might have dropped out, or become a researcher instead.)"},
+      {name:"Denying the Antecedent", latin:"", def:"Reasoning 'If P then Q; not P; therefore not Q.' Ruling out P doesn't rule out Q — Q may have other causes.",
+        example:"If you study, you'll pass. You didn't study. Therefore you'll fail. (You might pass anyway — from prior knowledge, luck, or an easy test.)",
+        example2:"If you exercise daily, you'll be healthy. You don't exercise daily. Therefore you won't be healthy. (Diet, genetics, and sleep all matter too.)"},
+      {name:"Undistributed Middle", latin:"", def:"A syllogism where the middle term never refers to all members of its category in either premise, so it can't actually connect the two ends.",
+        example:"All cats are mammals. All dogs are mammals. Therefore all dogs are cats. (Both share the middle term 'mammal,' but that alone doesn't link them.)",
+        example2:"All salespeople are persuasive. All politicians are persuasive. Therefore all politicians are salespeople. ('Persuasive' links neither group to the other.)"},
+      {name:"Affirming a Disjunct", latin:"", def:"Reasoning 'P or Q; P; therefore not Q' — assuming an 'or' must be exclusive when it may not be.",
+        example:"She's either an engineer or a musician. She's an engineer. So she's not a musician. (She could easily be both.)",
+        example2:"The cause was either bad weather or pilot error. It was bad weather. So it wasn't pilot error. (Investigations often find both contributed.)"}
+    ]
+  },
+
+  relevance: {
+    label: "Relevance",
+    desc: "The argument leans on something that has no real bearing on whether the conclusion is true.",
+    items: [
+      {name:"Ad Hominem", latin:"'to the person'", def:"Attacking the arguer's character, motives, or circumstances instead of engaging with their argument.",
+        example:"'You can't trust his climate research — he drives an SUV.' (His driving habits say nothing about whether his data is correct.)",
+        example2:"'Of course she thinks the new policy is fair, she's the one who wrote it.' (Her authorship doesn't itself make the policy unfair — that needs its own argument.)"},
+      {name:"Straw Man", latin:"", def:"Misrepresenting an opponent's position as something more extreme or simplistic, then refuting that weaker version.",
+        example:"A: 'We should have some regulations on fishing to protect stocks.' B: 'So you want to ban fishing entirely and put fishermen out of work?'",
+        example2:"A: 'Maybe we should review the overtime policy.' B: 'So you think nobody should ever work hard? Great plan for the economy.'"},
+      {name:"Red Herring", latin:"", def:"Introducing an unrelated topic to divert attention away from the original issue.",
+        example:"'Why worry about the budget deficit when there are children going hungry right now?' (A real issue, but it dodges the deficit question.)",
+        example2:"'You're asking about the missed deadline, but have you seen how hard the whole team has been working this quarter?'"},
+      {name:"Appeal to Authority", latin:"argumentum ad verecundiam", def:"Citing an authority figure as proof, when that person lacks relevant expertise or isn't representative of expert consensus.",
+        example:"'This actor says this supplement cures insomnia, so it must work.' (Fame in acting isn't medical expertise.)",
+        example2:"'My physics teacher says this diet is the healthiest one, so it must be true.' (Expertise in physics doesn't transfer to nutrition.)"},
+      {name:"Appeal to Emotion", latin:"", def:"Manipulating an emotional response — fear, pity, anger — in place of a substantive argument.",
+        example:"'Think of the puppies in shelters — you have to donate to my cause today!' (Sidesteps whether the organization is actually effective.)",
+        example2:"'If you really loved your family, you'd buy this life insurance plan right now.' (Guilt stands in for any comparison of actual plans.)"},
+      {name:"Tu Quoque", latin:"'you too'", def:"Deflecting criticism by pointing out the critic's own hypocrisy, rather than addressing the criticism itself.",
+        example:"'You say I shouldn't smoke, but you smoked in college!' (Doesn't change whether smoking is harmful.)",
+        example2:"'You're telling me to eat healthier, but you had fries yesterday.' (Their diet doesn't change whether the advice is good.)"}
+    ]
+  },
+
+  presumption: {
+    label: "Presumption",
+    desc: "The argument smuggles in an assumption it hasn't actually earned — a hidden premise doing the real work.",
+    items: [
+      {name:"Begging the Question", latin:"petitio principii", def:"The conclusion is already assumed within the premises, so the argument goes in a circle rather than proving anything.",
+        example:"'The Bible is true because it's the word of God, and we know it's the word of God because the Bible says so.'",
+        example2:"'This law is just because it's illegal to break it, and unjust laws wouldn't be enforced.' (Assumes the very fairness it's trying to prove.)"},
+      {name:"False Dilemma", latin:"", def:"Presenting only two options as though they were the only possibilities, when more actually exist.",
+        example:"'Either we cut the education budget, or we go bankrupt.' (Ignores other ways to close the gap.)",
+        example2:"'You're either with us or against us.' (Leaves no room for neutrality, partial agreement, or a third option.)"},
+      {name:"Slippery Slope", latin:"", def:"Claiming a first step will inevitably lead to a chain of increasingly extreme consequences, without justifying the chain.",
+        example:"'If we allow students to redo one test, soon no one will study at all and the whole grading system will collapse.'",
+        example2:"'If we let employees work from home one day a week, next they'll never come to the office and the company will fall apart.'"},
+      {name:"Hasty Generalization", latin:"", def:"Drawing a broad conclusion from a sample that's too small or unrepresentative.",
+        example:"'My two neighbors who went vegan got sick — veganism must be unhealthy.'",
+        example2:"'I got a rude waiter at that restaurant chain once, so the whole chain must have terrible service.'"},
+      {name:"Post Hoc Ergo Propter Hoc", latin:"'after this, therefore because of this'", def:"Assuming that because one event followed another, the first caused the second.",
+        example:"'I wore my lucky socks and we won the game — the socks worked.'",
+        example2:"'The company hired a new CEO and profits rose that quarter — the CEO must be a genius.' (Market conditions may have shifted regardless.)"},
+      {name:"Composition / Division", latin:"", def:"Assuming what's true of the parts must be true of the whole (composition), or what's true of the whole must be true of each part (division).",
+        example:"'Every player on the team is excellent, so the team must be an excellent team.' (Chemistry and coordination matter too.)",
+        example2:"'This company is hugely profitable, so every department in it must be running efficiently.' (One strong division can carry weak ones.)"}
+    ]
+  },
+
+  ambiguity: {
+    label: "Ambiguity",
+    desc: "The argument trades on unclear or shifting language rather than a clear logical error.",
+    items: [
+      {name:"Equivocation", latin:"", def:"Using a word with more than one meaning, and shifting between those meanings within the same argument.",
+        example:"'A feather is light. What is light cannot be dark. Therefore a feather cannot be dark.' ('Light' shifts from weight to brightness.)",
+        example2:"'Only man is rational. No woman is a man. Therefore no woman is rational.' ('Man' shifts from 'humankind' to 'male person.')"},
+      {name:"Amphiboly", latin:"", def:"A grammatically ambiguous sentence is interpreted in a way that misleads, exploiting sentence structure rather than word meaning.",
+        example:"A sign reads 'Save soap and waste paper.' (Is it urging you to save soap and to waste paper, or to save both soap and waste-paper?)",
+        example2:"'The professor said on Monday she would give the results.' (Did she say it on Monday, or will she give the results on Monday? The sentence supports both.)"},
+      {name:"Loaded Question", latin:"", def:"Asking a question that contains a built-in assumption, so any direct answer concedes the assumption.",
+        example:"'Have you stopped cheating on your exams?' (Answering yes or no both admit to having cheated before.)",
+        example2:"'Why does your policy keep failing small businesses?' (Presupposes the policy is failing them before any evidence is given.)"},
+      {name:"No True Scotsman", latin:"", def:"Redefining a category on the fly to exclude counterexamples, protecting a generalization from being falsified.",
+        example:"'No true Scotsman puts sugar on porridge.' 'My uncle Angus does, and he's Scottish.' 'Well, no true Scotsman would.'",
+        example2:"'No real programmer needs a debugger.' 'I'm a programmer and I use one constantly.' 'Then you're not a real programmer.'"},
+      {name:"Appeal to Ignorance", latin:"argumentum ad ignorantiam", def:"Claiming something is true because it hasn't been proven false (or vice versa) — absence of evidence treated as evidence.",
+        example:"'No one has proven ghosts don't exist, so they must be real.'",
+        example2:"'You can't prove this herbal remedy doesn't cure cancer, so it might.' (Lack of disproof isn't proof.)"},
+      {name:"Bandwagon", latin:"argumentum ad populum", def:"Arguing something must be true or good because many people believe or do it.",
+        example:"'Millions of people take this supplement, so it must actually work.'",
+        example2:"'This app has the most downloads in its category, so it's obviously the best one.'"}
+    ]
+  }
+};
+
+const QUIZ = [
+  {scenario:"A city council member proposes a small increase in the bike-lane budget. A critic responds: 'So you want to ban all cars from downtown?'", answer:"Straw Man", pool:["Straw Man","Red Herring","Ad Hominem","False Dilemma"], explain:"The critic replaced a modest proposal with an extreme, unstated version of it — that's a Straw Man, not just a change of topic."},
+  {scenario:"'Everyone I know is voting for this candidate, so she's clearly the right choice.'", answer:"Bandwagon", pool:["Bandwagon","Appeal to Authority","Hasty Generalization","Post Hoc Ergo Propter Hoc"], explain:"The popularity of the belief is treated as evidence for its truth — classic Bandwagon."},
+  {scenario:"'You claim eating less sugar is healthier, but I saw you eating cake last week — so your advice is worthless.'", answer:"Tu Quoque", pool:["Tu Quoque","Ad Hominem","Straw Man","Equivocation"], explain:"The response points to the speaker's own inconsistency rather than addressing whether the health claim is true — that's Tu Quoque ('you too')."},
+  {scenario:"'Either you support this exact policy, or you don't care about the environment at all.'", answer:"False Dilemma", pool:["False Dilemma","Slippery Slope","Begging the Question","No True Scotsman"], explain:"There are clearly more than two positions available here — support in a different form, partial support, alternative proposals — so reducing it to two options is a False Dilemma."},
+  {scenario:"'I flipped the light switch and the power went out in the whole building — my switch must have caused it.'", answer:"Post Hoc Ergo Propter Hoc", pool:["Post Hoc Ergo Propter Hoc","Hasty Generalization","Affirming the Consequent","Composition / Division"], explain:"Sequence (switch, then outage) is treated as proof of causation, ignoring other likely explanations like a grid failure — Post Hoc."},
+  {scenario:"'If the sprinklers ran, the lawn would be wet. The lawn is wet. So the sprinklers must have run.'", answer:"Affirming the Consequent", pool:["Affirming the Consequent","Denying the Antecedent","Post Hoc Ergo Propter Hoc","Undistributed Middle"], explain:"The wetness (the consequent) is observed, and the antecedent is assumed — but rain or a hose could explain it just as well."},
+  {scenario:"A politician is asked about a tax proposal and responds by talking at length about their opponent's unrelated personal scandal.", answer:"Red Herring", pool:["Red Herring","Straw Man","Appeal to Emotion","Tu Quoque"], explain:"The response introduces an unrelated topic to steer attention away from the original question — Red Herring."},
+  {scenario:"'No real fan of the band would skip the reunion tour.' 'I'm a huge fan and I'm skipping it — tickets are too expensive.' 'Then you're not a real fan.'", answer:"No True Scotsman", pool:["No True Scotsman","Begging the Question","Equivocation","Appeal to Ignorance"], explain:"The definition of 'real fan' is quietly redefined to dodge the counterexample — No True Scotsman."},
+  {scenario:"'This diet must be effective — no study has ever definitively proven that it doesn't work.'", answer:"Appeal to Ignorance", pool:["Appeal to Ignorance","Bandwagon","Hasty Generalization","Begging the Question"], explain:"Lack of disproof is treated as proof — Appeal to Ignorance."},
+  {scenario:"'You can't trust her argument about the merger — she used to work at a rival firm.'", answer:"Ad Hominem", pool:["Ad Hominem","Straw Man","Tu Quoque","Red Herring"], explain:"Her past employer says nothing about whether her argument's premises and logic are sound — it attacks her instead of the argument."},
+  {scenario:"'This actor says this energy drink boosts brainpower, so it must be true.'", answer:"Appeal to Authority", pool:["Appeal to Authority","Bandwagon","Appeal to Emotion","Appeal to Ignorance"], explain:"Fame as an actor isn't relevant expertise in nutrition or neuroscience — the authority cited has no bearing on the claim."},
+  {scenario:"A charity ad shows a crying child and says nothing about outcomes, just 'Give now, or you're letting this happen.'", answer:"Appeal to Emotion", pool:["Appeal to Emotion","Appeal to Authority","Bandwagon","Loaded Question"], explain:"Guilt and pity replace any actual argument about whether donating to this specific charity is effective."},
+  {scenario:"'A feather is light in weight. Nothing that's light can be heavy to carry a long distance. So a feather can't be tiring to carry far.'", answer:"Equivocation", pool:["Equivocation","Amphiboly","Loaded Question","Begging the Question"], explain:"'Light' quietly shifts meaning between 'low weight' and something closer to 'easy,' letting the argument smuggle in a conclusion it hasn't earned."},
+  {scenario:"A headline reads: 'Police shoot man with knife' — and readers can't tell if police used a knife or the man had one.", answer:"Amphiboly", pool:["Amphiboly","Equivocation","Loaded Question","Straw Man"], explain:"The sentence's grammar is genuinely ambiguous, not a shifted word meaning — that's Amphiboly."},
+  {scenario:"'Why do your policies keep hurting working families?' asked of a candidate who hasn't agreed the policies do that.", answer:"Loaded Question", pool:["Loaded Question","Begging the Question","Ad Hominem","Straw Man"], explain:"The question assumes its own premise (that the policies hurt families) in a way that traps any direct answer into conceding it."},
+  {scenario:"'This law must be just, since breaking it is illegal, and illegal things are unjust.'", answer:"Begging the Question", pool:["Begging the Question","Loaded Question","Equivocation","False Dilemma"], explain:"The conclusion (the law is just) is baked into a premise (illegal = unjust) rather than being independently established — the argument circles back on itself."},
+  {scenario:"'If we let students appeal one grade, soon no grade will mean anything and the whole system collapses.'", answer:"Slippery Slope", pool:["Slippery Slope","False Dilemma","Hasty Generalization","Composition / Division"], explain:"A chain of increasingly extreme consequences is asserted without justifying any of the intermediate steps — Slippery Slope."},
+  {scenario:"'I met two rude people from that city, so people from there must generally be rude.'", answer:"Hasty Generalization", pool:["Hasty Generalization","Post Hoc Ergo Propter Hoc","Bandwagon","Appeal to Ignorance"], explain:"A broad claim about a whole city is drawn from a tiny, unrepresentative sample — Hasty Generalization."},
+  {scenario:"'Every brick in this wall is small. Therefore the wall itself must be small.'", answer:"Composition / Division", pool:["Composition / Division","Undistributed Middle","Hasty Generalization","Equivocation"], explain:"A property of the parts (each brick being small) is wrongly transferred to the whole (the wall) — the Fallacy of Composition."},
+  {scenario:"'All squares are rectangles. All rectangles have four sides. Therefore all squares are the only shapes with four sides.'", answer:"Undistributed Middle", pool:["Undistributed Middle","Affirming a Disjunct","Affirming the Consequent","Denying the Antecedent"], explain:"The middle term ('rectangles having four sides') never covers all four-sided shapes, so it can't license a conclusion that squares are the only ones."},
+  {scenario:"'If you finish the marathon, you're fit. You didn't finish the marathon. So you're not fit.'", answer:"Denying the Antecedent", pool:["Denying the Antecedent","Affirming the Consequent","Post Hoc Ergo Propter Hoc","Hasty Generalization"], explain:"Not finishing a marathon doesn't rule out fitness — there are many other ways to be fit, or many reasons someone might not finish."},
+  {scenario:"'The dessert is either chocolate or vanilla. It's chocolate. So it can't also have vanilla in it.'", answer:"Affirming a Disjunct", pool:["Affirming a Disjunct","False Dilemma","Undistributed Middle","Equivocation"], explain:"The 'or' is treated as exclusive without justification — many desserts could combine both flavors."},
+  {scenario:"'Millions of people use this trading app, so it must be the safest option out there.'", answer:"Bandwagon", pool:["Bandwagon","Appeal to Authority","Appeal to Ignorance","Hasty Generalization"], explain:"Popularity is offered as proof of safety, but the two aren't the same thing — Bandwagon."},
+  {scenario:"'No one has proven this old bridge is unsafe, so it must be fine to keep using it without inspection.'", answer:"Appeal to Ignorance", pool:["Appeal to Ignorance","Begging the Question","Slippery Slope","False Dilemma"], explain:"Absence of proof that it's unsafe is treated as proof that it's safe — the burden of proof has been quietly flipped."},
+  {scenario:"'You say I should exercise more, but you skipped the gym twice this month yourself.'", answer:"Tu Quoque", pool:["Tu Quoque","Ad Hominem","Red Herring","Straw Man"], explain:"Pointing out the critic's own inconsistency doesn't address whether the advice to exercise more is actually good advice."},
+  {scenario:"'My uncle is a real environmentalist and he flies for work sometimes.' 'Then he's not a real environmentalist.'", answer:"No True Scotsman", pool:["No True Scotsman","Begging the Question","Composition / Division","Equivocation"], explain:"'Real environmentalist' gets redefined on the spot purely to exclude an inconvenient counterexample."},
+  {scenario:"'Buy this car today — think about how disappointed your kids will be if you can't take them on the road trip you promised.'", answer:"Appeal to Emotion", pool:["Appeal to Emotion","Appeal to Authority","Slippery Slope","Loaded Question"], explain:"Guilt about disappointing the kids substitutes for any comparison of the car's actual price, safety, or features."}
+];
+
+let currentCategory = 'formal';
+const tabsEl = document.getElementById('tabs');
+const gridEl = document.getElementById('grid');
+const descEl = document.getElementById('panelDesc');
+
+Object.keys(DATA).forEach(key=>{
+  const btn = document.createElement('button');
+  btn.className = 'tab' + (key===currentCategory ? ' active':'');
+  btn.textContent = DATA[key].label;
+  btn.onclick = ()=>{ currentCategory = key; render(); };
+  btn.dataset.key = key;
+  tabsEl.appendChild(btn);
+});
+
+const quizBtn = document.createElement('button');
+quizBtn.className = 'tab';
+quizBtn.textContent = 'Quiz Mode';
+quizBtn.onclick = ()=>{ currentCategory = 'quiz'; render(); };
+quizBtn.dataset.key = 'quiz';
+tabsEl.appendChild(quizBtn);
+
+function render(){
+  document.querySelectorAll('.tab').forEach(b=> b.classList.toggle('active', b.dataset.key===currentCategory));
+  const gridSection = document.getElementById('grid');
+  const quizSection = document.getElementById('quizSection');
+
+  if(currentCategory==='quiz'){
+    gridSection.style.display='none';
+    document.querySelector('.panel-frame').style.display='none';
+    quizSection.style.display='block';
+    startQuiz();
+    scheduleParentResize();
+    return;
+  }
+
+  document.querySelector('.panel-frame').style.display='block';
+  quizSection.style.display='none';
+  gridSection.style.display='grid';
+
+  const cat = DATA[currentCategory];
+  descEl.textContent = cat.desc;
+  gridEl.innerHTML = '';
+
+  cat.items.forEach((f,i)=>{
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="exhibit">Exhibit ${String(i+1).padStart(2,'0')} · ${cat.label}</div>
+      <h3>${f.name}</h3>
+      ${f.latin ? `<div class="latin">${f.latin}</div>` : ''}
+      <p class="def">${f.def}</p>
+      <div class="example"><strong>Example 1 —</strong> ${f.example}</div>
+      <div class="example two"><strong>Example 2 —</strong> ${f.example2}</div>
+      <div class="tap-hint">tap to reveal examples</div>
+    `;
+    card.onclick = ()=>{
+      card.classList.toggle('open');
+      scheduleParentResize();
+    };
+    gridEl.appendChild(card);
+  });
+
+  scheduleParentResize();
+}
+
+let quizIndex = 0;
+let score = 0;
+let answered = 0;
+
+function startQuiz(){
+  if(quizIndex >= QUIZ.length){ quizIndex = 0; }
+  loadQuestion();
+}
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+function loadQuestion(){
+  const q = QUIZ[quizIndex];
+  document.getElementById('quizScenario').textContent = q.scenario;
+
+  const optsEl = document.getElementById('quizOptions');
+  optsEl.innerHTML = '';
+
+  const feedback = document.getElementById('quizFeedback');
+  feedback.style.display = 'none';
+  feedback.textContent = '';
+
+  document.getElementById('nextBtn').style.display = 'none';
+  document.getElementById('quizProgress').textContent = `Case ${quizIndex+1} / ${QUIZ.length}`;
+
+  shuffle(q.pool).forEach(opt=>{
+    const b = document.createElement('button');
+    b.className = 'opt';
+    b.textContent = opt;
+    b.onclick = ()=> selectAnswer(b, opt, q);
+    optsEl.appendChild(b);
+  });
+
+  updateScore();
+  scheduleParentResize();
+}
+
+function selectAnswer(btn, opt, q){
+  const allOpts = document.querySelectorAll('.opt');
+  allOpts.forEach(o=> o.onclick = null);
+  answered++;
+
+  if(opt === q.answer){
+    btn.classList.add('correct');
+    score++;
+  } else {
+    btn.classList.add('wrong');
+    allOpts.forEach(o=>{ if(o.textContent===q.answer) o.classList.add('correct'); });
+  }
+
+  const feedback = document.getElementById('quizFeedback');
+  feedback.style.display = 'block';
+  feedback.innerHTML = `<strong>${q.answer}.</strong> ${q.explain}`;
+
+  document.getElementById('nextBtn').style.display = 'inline-block';
+  updateScore();
+  scheduleParentResize();
+}
+
+function updateScore(){
+  document.getElementById('quizScore').textContent = `Score: ${score} / ${answered}`;
+}
+
+document.getElementById('nextBtn').onclick = ()=>{
+  quizIndex = (quizIndex + 1) % QUIZ.length;
+  loadQuestion();
+};
+
+/* Match the parent al-folio page when this file is embedded in the blog. */
+function readParentVar(style, name, fallback){
+  const value = style.getPropertyValue(name).trim();
+  return value || fallback;
+}
+
+function syncAlFolioTheme(){
+  try{
+    if(window.parent === window) return;
+
+    const parentDoc = window.parent.document;
+    const parentRoot = parentDoc.documentElement;
+    const parentBody = parentDoc.body;
+    const rootStyle = window.parent.getComputedStyle(parentRoot);
+    const bodyStyle = window.parent.getComputedStyle(parentBody);
+    const heading = parentDoc.querySelector('.post-title, h1');
+    const headingStyle = heading ? window.parent.getComputedStyle(heading) : bodyStyle;
+    const root = document.documentElement;
+
+    root.style.setProperty(
+      '--page-bg',
+      readParentVar(rootStyle,'--global-bg-color',bodyStyle.backgroundColor || '#ffffff')
+    );
+    root.style.setProperty(
+      '--card-bg',
+      readParentVar(rootStyle,'--global-card-bg-color',
+        readParentVar(rootStyle,'--global-bg-color',bodyStyle.backgroundColor || '#ffffff'))
+    );
+    root.style.setProperty(
+      '--text',
+      readParentVar(rootStyle,'--global-text-color',bodyStyle.color || '#212529')
+    );
+    root.style.setProperty(
+      '--text-soft',
+      readParentVar(rootStyle,'--global-text-color-light',
+        readParentVar(rootStyle,'--global-text-color',bodyStyle.color || '#6c757d'))
+    );
+    root.style.setProperty(
+      '--accent',
+      readParentVar(rootStyle,'--global-theme-color','#b509ac')
+    );
+    root.style.setProperty(
+      '--accent-hover',
+      readParentVar(rootStyle,'--global-hover-color',
+        readParentVar(rootStyle,'--global-theme-color','#8f0788'))
+    );
+    root.style.setProperty(
+      '--border',
+      readParentVar(rootStyle,'--global-divider-color',
+        readParentVar(rootStyle,'--global-card-border-color','#dee2e6'))
+    );
+    root.style.setProperty('--site-font',bodyStyle.fontFamily || "'Roboto',sans-serif");
+    root.style.setProperty('--site-heading-font',headingStyle.fontFamily || bodyStyle.fontFamily || "'Roboto',sans-serif");
+    root.style.setProperty('--site-heading-weight',headingStyle.fontWeight || '400');
+
+    scheduleParentResize();
+  }catch(err){
+    console.warn('Fallacy page could not inherit the parent al-folio theme:',err);
+  }
+}
+
+/* Make the iframe grow with the content so opened cards are not clipped. */
+let resizeTimer = null;
+
+function resizeParentFrame(){
+  try{
+    if(window.parent === window) return;
+    const frames = window.parent.document.querySelectorAll('iframe');
+    const frame = Array.from(frames).find(f=>f.contentWindow === window);
+    if(!frame) return;
+
+    const height = Math.max(
+      document.body.scrollHeight,
+      document.documentElement.scrollHeight
+    );
+
+    frame.style.height = `${height + 8}px`;
+    frame.setAttribute('scrolling','no');
+  }catch(err){}
+}
+
+function scheduleParentResize(){
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(resizeParentFrame,40);
+}
+
+syncAlFolioTheme();
+
+try{
+  if(window.parent !== window){
+    const parentRoot = window.parent.document.documentElement;
+    const parentBody = window.parent.document.body;
+
+    const themeObserver = new MutationObserver(syncAlFolioTheme);
+    themeObserver.observe(parentRoot,{
+      attributes:true,
+      attributeFilter:['data-theme','class','style']
+    });
+    themeObserver.observe(parentBody,{
+      attributes:true,
+      attributeFilter:['class','style']
+    });
+  }
+}catch(err){}
+
+if('ResizeObserver' in window){
+  const resizeObserver = new ResizeObserver(scheduleParentResize);
+  resizeObserver.observe(document.body);
+}
+
+window.addEventListener('load',()=>{
+  syncAlFolioTheme();
+  scheduleParentResize();
+});
+
+window.addEventListener('resize',scheduleParentResize);
+
+render();
+</script>
+</body>
+</html>
